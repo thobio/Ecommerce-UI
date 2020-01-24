@@ -9,37 +9,54 @@
 import SwiftUI
 
 struct Home: View {
-    @State var search:String = ""
+    
+     @State var search:String = ""
+     @State var categories:Bool = false
+     @State var featured:Bool = false
+     @State var bestSell:Bool = false
+     //@Binding var show : Bool
+    
     var images =  ["women","men","kid"]
     var title = ["Women","Men","Kids"]
+    
     var body: some View {
-        ZStack{
-            VStack(spacing:20) {
-                NavigationView()
-                ScrollView(.vertical, showsIndicators: false) {
-                    SearchBar(search: search)
-                    VStack(spacing:15){
-                        CategoriesHeading()
-                        CategoriesList(images: images, title: title)
+         NavigationView{
+            ZStack{
+                VStack(spacing:20) {
+                    NavigationViews()
+                    ScrollView(.vertical, showsIndicators: false) {
+                        SearchBar(search: search)
+                        VStack(spacing:15){
+                            CategoriesHeading(categories: categories)
+                            CategoriesList(images: images, title: title)
+                        }
+                        VStack(alignment:.leading,spacing:15) {
+                            Featured(featured: featured)
+                            FeaturedList()
+                        }
+                        VStack(alignment:.leading,spacing:15) {
+                            BestSell(bestSell: bestSell)
+                            BestSellList()
+                        }
+                        Spacer()
                     }
-                    VStack(alignment:.leading,spacing:15) {
-                        Featured()
-                        FeaturedList()
-                    }
-                    Spacer()
                 }
             }
-        }
+            .navigationBarTitle("")
+            .navigationBarHidden(true)
+            .navigationBarBackButtonHidden(true)
+        }.accentColor(Color("ScreenHeadingTextColor"))
     }
 }
 
 struct Home_Previews: PreviewProvider {
+   // @State static var showS = true
     static var previews: some View {
         Home()
     }
 }
 
-struct NavigationView: View {
+struct NavigationViews: View {
     var body: some View {
         HStack {
             Button(action: {
@@ -76,20 +93,47 @@ struct SearchBar: View {
 }
 
 struct CategoriesHeading: View {
+    @State var categories:Bool
     var body: some View {
         HStack{
             Text("Categories").fontWeight(.medium).font(.system(size: 22)).foregroundColor(Color("ScreenHeadingTextColor"))
             Spacer()
-            Text("See all").font(.system(size: 14)).foregroundColor(Color("ScreenHeadingTextColor"))
+            NavigationLink(destination: DetailsPage(show: $categories, headingName: "Categories"), isActive: $categories) {
+                Text("")
+            }
+            Text("See all").font(.system(size: 14)).foregroundColor(Color("ScreenHeadingTextColor")).onTapGesture {
+                self.categories.toggle()
+            }
         }.padding()
     }
 }
 struct Featured: View {
+    @State var featured:Bool
     var body: some View {
         HStack{
             Text("Featured").fontWeight(.medium).font(.system(size: 22)).foregroundColor(Color("ScreenHeadingTextColor"))
             Spacer()
-            Text("See all").font(.system(size: 14)).foregroundColor(Color("ScreenHeadingTextColor"))
+            NavigationLink(destination: DetailsPage(show: $featured, headingName: "Featured"), isActive: $featured) {
+                Text("")
+            }
+            Text("See all").font(.system(size: 14)).foregroundColor(Color("ScreenHeadingTextColor")).onTapGesture {
+                self.featured.toggle()
+            }
+        }.padding()
+    }
+}
+struct BestSell: View {
+    @State var bestSell:Bool
+    var body: some View {
+        HStack{
+            Text("Best Sell").fontWeight(.medium).font(.system(size: 22)).foregroundColor(Color("ScreenHeadingTextColor"))
+            Spacer()
+            NavigationLink(destination: DetailsPage(show: $bestSell, headingName: "Best Sell"), isActive: $bestSell) {
+                Text("")
+            }
+            Text("See all").font(.system(size: 14)).foregroundColor(Color("ScreenHeadingTextColor")).onTapGesture {
+                self.bestSell.toggle()
+            }
         }.padding()
     }
 }
@@ -116,23 +160,73 @@ struct FeaturedList:View {
     var body: some View {
         ScrollView(.horizontal,showsIndicators: false){
             ZStack(alignment: .center){
-            HStack(alignment: .center){
-                VStack (alignment: .leading){
-                    Image("5").frame(width: 150, height: 180)
-                    Text("$55.00")
-                    Text("Woman T-Shirt")
-                }
-                VStack (alignment: .leading){
-                    Image("6").frame(width: 150, height: 180)
-                    Text("$34.00")
-                    Text("Man T-Shirt")
-                }
-                VStack (alignment: .leading){
-                    Image("7").frame(width: 150, height: 180)
-                    Text("$34.00")
-                    Text("Woman T-Shirt")
-                }
-            }.padding(.leading,20)
+                HStack(alignment: .center){
+                    Button(action: {
+                        
+                    }) {
+                        VStack (alignment: .leading){
+                            Image("7").renderingMode(.original).frame(width: 150, height: 180)
+                            Text("$55.00")
+                            Text("Woman T-Shirt")
+                        }
+                    }.accentColor(.black)
+                    Button(action: {
+                        
+                    }) {
+                        VStack (alignment: .leading){
+                            Image("8").renderingMode(.original).frame(width: 150, height: 180)
+                            Text("$34.00")
+                            Text("Man T-Shirt")
+                        }
+                    }.accentColor(.black)
+                    Button(action: {
+                        
+                    }) {
+                        VStack (alignment: .leading){
+                            Image("9").renderingMode(.original).frame(width: 150, height: 180)
+                            Text("$34.00")
+                            Text("Woman T-Shirt")
+                        }
+                    }.accentColor(.black)
+                }.padding(.leading,20)
+            }.frame(height:260)
+        }.frame(height:260)
+    }
+}
+
+struct BestSellList:View {
+    var body: some View {
+        ScrollView(.horizontal,showsIndicators: false){
+            ZStack(alignment: .center){
+                HStack(alignment: .center){
+                    Button(action: {
+                        
+                    }) {
+                        VStack (alignment: .leading){
+                            Image("12").renderingMode(.original).frame(width: 150, height: 180)
+                            Text("$25.00")
+                            Text("Woman T-Shirt")
+                        }
+                    }.accentColor(.black)
+                    Button(action: {
+                        
+                    }) {
+                        VStack (alignment: .leading){
+                            Image("11").renderingMode(.original).frame(width: 150, height: 180)
+                            Text("$44.00")
+                            Text("Man T-Shirt")
+                        }
+                    }.accentColor(.black)
+                    Button(action: {
+                        
+                    }) {
+                        VStack (alignment: .leading){
+                            Image("7").renderingMode(.original).frame(width: 150, height: 180)
+                            Text("$34.00")
+                            Text("Woman T-Shirt")
+                        }
+                    }.accentColor(.black)
+                }.padding(.leading,20)
             }.frame(height:260)
         }.frame(height:260)
     }

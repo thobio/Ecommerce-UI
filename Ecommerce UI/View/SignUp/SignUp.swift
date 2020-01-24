@@ -51,12 +51,11 @@ struct SignUp: View {
                     .frame(height: 1.0, alignment: .bottom)
                     .foregroundColor(Color("ScreenHeadingTextColor"))
             }.padding()
-    
+//            NavigationLink(destination: Home(show: $homePages), isActive: $homePages) {
+//                           Text("")
+//            }
             Button(action: {
                self.homePages.toggle()
-                if self.homePages == true {
-                    //Home()
-                }
             }) {
                 Text("Sign Up").font(.system(size: 20.0)).foregroundColor(Color.white)
             }.frame(minWidth:0, maxWidth: .infinity).frame(height:50).background(LinearGradient(gradient: Gradient(colors: [Color("LoginButtonColor1"),Color("LoginButtonColor2")]), startPoint: .leading, endPoint: .trailing)).cornerRadius(6.0).shadow(color: Color("Shadow"), radius: 10, x: 0, y: 10).padding()

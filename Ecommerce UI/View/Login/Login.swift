@@ -17,7 +17,7 @@ struct Login: View {
     @State var siginUp = false
     
     var body: some View {
-        
+       // NavigationView {
         VStack(spacing: 10){
             Spacer()
             Text("Sign In").font(.title)
@@ -41,6 +41,9 @@ struct Login: View {
                     .frame(height: 1.0, alignment: .bottom)
                 .foregroundColor(Color("ScreenHeadingTextColor"))
             }.padding()
+//            NavigationLink(destination: Home(show: $homeSuccess), isActive: $homeSuccess) {
+//                Text("")
+//            }
             Button(action: {
                 self.homeSuccess.toggle()
             }) {
@@ -59,7 +62,10 @@ struct Login: View {
             Spacer()
             Spacer()
         }.padding()
-  
+//            .navigationBarTitle("")
+//            .navigationBarHidden(true)
+//            .navigationBarBackButtonHidden(true)
+//        }
     }
 }
 
